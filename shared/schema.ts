@@ -25,8 +25,10 @@ export const modules = pgTable("modules", {
   descriptionTamil: text("description_tamil"),
   category: text("category").notNull(),
   videoUrl: text("video_url"),
+  downloadUrl: text("download_url"),
   pdfUrl: text("pdf_url"),
-  duration: integer("duration"), // in minutes
+  duration: integer("duration"), // in seconds
+  level: text("level").default("beginner"), // beginner, intermediate, advanced
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
 });

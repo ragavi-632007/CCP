@@ -5,12 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { Play, Download, Clock, Languages, FileText, Loader2 } from "lucide-react";
+import { Play, Download, Clock, Languages, FileText, Loader2, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
+import { useToast } from "@/hooks/use-toast";
 import { Module } from "@shared/schema";
 
 export default function ModulesPage() {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const { data: modules, isLoading } = useQuery<Module[]>({
@@ -35,6 +37,41 @@ export default function ModulesPage() {
 
   const getProgressForModule = (moduleId: string) => {
     return userProgress?.find((p: any) => p.moduleId === moduleId);
+  };
+
+  const handleDownload = async (module: Module) => {
+    try {
+      if (module.downloadUrl) {
+        // Create a temporary link element to trigger download
+        const link = document.createElement('a');
+        link.href = module.downloadUrl;
+        link.download = `${language === 'ta' && module.titleTamil ? module.titleTamil : module.title}.mp4`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        toast({
+          title: "Download Started",
+          description: `${language === 'ta' && module.titleTamil ? module.titleTamil : module.title}`,
+        });
+      } else {
+        toast({
+          title: "Download not available",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Download failed",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const formatDuration = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
   if (isLoading) {
@@ -197,7 +234,7 @@ export default function ModulesPage() {
                   </div>
                   <div className="absolute top-3 right-3 bg-primary text-white px-2 py-1 rounded text-xs font-medium">
                     <Clock className="h-3 w-3 inline mr-1" />
-                    {module.duration} min
+                    {formatDuration(module.duration || 0)}
                   </div>
                   {progress?.completed && (
                     <div className="absolute top-3 left-3 bg-green-600 text-white px-2 py-1 rounded text-xs font-medium">
@@ -228,19 +265,33 @@ export default function ModulesPage() {
                         <Languages className="h-4 w-4 mr-1" />
                         <span>தமிழ் / EN</span>
                       </div>
-                      {module.pdfUrl && (
-                        <div className="flex items-center text-sm text-slate-500">
-                          <FileText className="h-4 w-4 mr-1" />
-                          <span>PDF Guide</span>
-                        </div>
+                      <div className="flex items-center text-sm text-slate-500">
+                        <FileText className="h-4 w-4 mr-1" />
+                        <span>Video</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      {module.videoUrl && (
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => module.videoUrl && window.open(module.videoUrl, '_blank')}
+                        >
+                          <Play className="h-4 w-4 mr-1" />
+                          Play
+                        </Button>
+                      )}
+                      {module.downloadUrl && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleDownload(module)}
+                        >
+                          <Download className="h-4 w-4 mr-1" />
+                          Download
+                        </Button>
                       )}
                     </div>
-                    {module.pdfUrl && (
-                      <Button variant="outline" size="sm">
-                        <Download className="h-4 w-4 mr-1" />
-                        {t('modules.download')}
-                      </Button>
-                    )}
                   </div>
                 </CardContent>
               </Card>

@@ -24,7 +24,64 @@ export function registerRoutes(app: Express): Server {
   // Modules routes
   app.get("/api/modules", async (req, res) => {
     try {
-      const modules = await storage.getModules();
+      let modules = await storage.getModules();
+      
+      // Add default modules if none exist
+      if (modules.length === 0) {
+        const defaultModules = [
+          {
+            title: "Digital Banking Basics",
+            titleTamil: "டிஜிட்டல் வங்கி அடிப்படைகள்",
+            description: "Learn about online banking, UPI payments, and digital financial services",
+            descriptionTamil: "ஆன்லைன் வங்கி, UPI பணம் செலுத்துதல் மற்றும் டிஜிட்டல் நிதி சேவைகளைப் பற்றி அறியுங்கள்",
+            category: "banking",
+            videoUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+            downloadUrl: "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+            duration: 300,
+            level: "beginner"
+          },
+          {
+            title: "Government Schemes Overview",
+            titleTamil: "அரசு திட்டங்கள் கண்ணோட்டம்",
+            description: "Understanding PM-KISAN, Ayushman Bharat, and other welfare schemes",
+            descriptionTamil: "PM-KISAN, ஆயுஷ்மான் பாரத் மற்றும் பிற நலன் திட்டங்களைப் புரிந்துகொள்ளுதல்",
+            category: "government",
+            videoUrl: "https://sample-videos.com/zip/10/mp4/mp4-1920x1080.mp4",
+            downloadUrl: "https://sample-videos.com/zip/10/mp4/mp4-1920x1080.mp4",
+            duration: 450,
+            level: "beginner"
+          },
+          {
+            title: "Modern Farming Techniques",
+            titleTamil: "நவீன விவசாய நுட்பங்கள்",
+            description: "Learn about organic farming, crop rotation, and sustainable agriculture",
+            descriptionTamil: "இயற்கை விவசாயம், பயிர் சுழற்சி மற்றும் நிலையான விவசாயம் பற்றி அறியுங்கள்",
+            category: "agriculture",
+            videoUrl: "https://sample-videos.com/zip/10/mp4/mp4-1920x1080.mp4",
+            downloadUrl: "https://sample-videos.com/zip/10/mp4/mp4-1920x1080.mp4",
+            duration: 600,
+            level: "intermediate"
+          },
+          {
+            title: "Healthcare Access and Rights",
+            titleTamil: "சுகாதார அணுகல் மற்றும் உரிமைகள்",
+            description: "Understanding healthcare schemes, hospital access, and health insurance",
+            descriptionTamil: "சுகாதார திட்டங்கள், மருத்துவமனை அணுகல் மற்றும் சுகாதார காப்பீடு பற்றி புரிந்துகொள்ளுதல்",
+            category: "health",
+            videoUrl: "https://sample-videos.com/zip/10/mp4/mp4-1920x1080.mp4",
+            downloadUrl: "https://sample-videos.com/zip/10/mp4/mp4-1920x1080.mp4",
+            duration: 420,
+            level: "beginner"
+          }
+        ];
+
+        for (const moduleData of defaultModules) {
+          await storage.createModule(moduleData);
+        }
+        
+        modules = await storage.getModules();
+      }
+      
       res.json(modules);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch modules" });
@@ -135,10 +192,88 @@ export function registerRoutes(app: Express): Server {
   // Government schemes
   app.get("/api/schemes", async (req, res) => {
     try {
-      const schemes = await storage.getGovernmentSchemes();
+      let schemes = await storage.getGovernmentSchemes();
+      
+      // Add default government schemes if none exist
+      if (schemes.length === 0) {
+        const defaultSchemes = [
+          {
+            name: "PM-KISAN Samman Nidhi",
+            nameTamil: "PM-KISAN सम्मान निधि",
+            description: "Financial support of ₹6000 per year to farmer families",
+            descriptionTamil: "விவசாயி குடும்பங்களுக்கு ஆண்டுக்கு ₹6000 நிதி உதவி",
+            category: "agriculture",
+            eligibility: "Small and marginal farmers",
+            benefits: "₹2000 every 4 months",
+            applicationProcess: "Online through PM-KISAN portal",
+            website: "https://pmkisan.gov.in",
+            contactNumber: "155261",
+            lastUpdated: new Date()
+          },
+          {
+            name: "Ayushman Bharat",
+            nameTamil: "ஆயுஷ்மான் பாரத்",
+            description: "Health insurance scheme providing coverage up to ₹5 lakh",
+            descriptionTamil: "₹5 லட்சம் வரை காப்பீடு வழங்கும் சுகாதார காப்பீட்டு திட்டம்",
+            category: "health",
+            eligibility: "Poor and vulnerable families",
+            benefits: "Free medical treatment up to ₹5 lakh",
+            applicationProcess: "Through Common Service Centers",
+            website: "https://pmjay.gov.in",
+            contactNumber: "14555",
+            lastUpdated: new Date()
+          },
+          {
+            name: "Pradhan Mantri Awas Yojana",
+            nameTamil: "பிரதான மந்திரி ஆவாஸ் யோஜனா",
+            description: "Housing scheme for affordable housing",
+            descriptionTamil: "மலிவு விலை வீட்டுத் திட்டம்",
+            category: "housing",
+            eligibility: "Economically weaker sections",
+            benefits: "Subsidy for home construction/purchase",
+            applicationProcess: "Online application through official portal",
+            website: "https://pmaymis.gov.in",
+            contactNumber: "1800-11-6446",
+            lastUpdated: new Date()
+          },
+          {
+            name: "Jan Dhan Yojana",
+            nameTamil: "ஜன் தன் யோஜனா",
+            description: "Financial inclusion program for banking services",
+            descriptionTamil: "வங்கி சேவைகளுக்கான நிதி சேர்க்கை திட்டம்",
+            category: "banking",
+            eligibility: "All Indian citizens",
+            benefits: "Zero balance account, RuPay card, insurance",
+            applicationProcess: "Visit nearest bank branch",
+            website: "https://pmjdy.gov.in",
+            contactNumber: "1800-11-0001",
+            lastUpdated: new Date()
+          },
+          {
+            name: "Digital India Initiative",
+            nameTamil: "டிஜிட்டல் இந்தியா முன்முயற்சி",
+            description: "Program to transform India digitally",
+            descriptionTamil: "இந்தியாவை டிஜிட்டல் முறையில் மாற்றும் திட்டம்",
+            category: "technology",
+            eligibility: "All citizens",
+            benefits: "Digital services, internet connectivity",
+            applicationProcess: "Various online portals",
+            website: "https://digitalindia.gov.in",
+            contactNumber: "1800-233-1555",
+            lastUpdated: new Date()
+          }
+        ];
+
+        for (const schemeData of defaultSchemes) {
+          await storage.createGovernmentScheme(schemeData);
+        }
+        
+        schemes = await storage.getGovernmentSchemes();
+      }
+      
       res.json(schemes);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch schemes" });
+      res.status(500).json({ message: "Failed to fetch government schemes" });
     }
   });
 
