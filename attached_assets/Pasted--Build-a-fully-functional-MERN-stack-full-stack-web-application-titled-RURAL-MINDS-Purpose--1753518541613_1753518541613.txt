@@ -1,0 +1,138 @@
+🔧 Build a fully functional MERN stack full-stack web application titled “RURAL MINDS.”
+
+🎯 Purpose:
+The app should educate and empower rural communities in Tamil and English by providing access to data literacy education. The app must help users understand vital public information like government schemes, agricultural market prices, weather/rainfall data, and health insights.
+
+🌐 Key Features:
+1. 🔐 User Authentication
+Login, Signup, Logout, Forgot Password
+
+Secure JWT-based session handling
+
+Use bcrypt for password hashing
+
+Store users in MongoDB
+
+Protect routes with middleware
+
+Proper folder structure (controllers, routes, models, utils)
+
+2. 🏠 Home Page
+Navbar: Home, Modules, Forum, Feedback, Live Data, Language Toggle
+
+Welcome section with app purpose
+
+Mobile-friendly and clean UI
+
+3. 🎥 Modules Page
+Show educational videos (hosted on YouTube or locally stored)
+
+Add Tamil and English subtitles (option to select)
+
+Allow download of video/resource PDF
+
+Pre-load 2 default videos:
+
+“How to Apply for Govt Scheme” (Tamil + English)
+
+“Basics of Banking”
+
+4. 👥 Community Forum
+Simple forum where rural users can post questions
+
+Firebase-style or MongoDB-based post/comment system
+
+Embed Google Meet for mentor sessions
+
+5. 📊 Live Government Data
+Fetch data from:
+
+data.gov.in APIs
+
+Agriculture prices API (eNAM or mock JSON)
+
+Weather/rainfall API (like open-meteo.com)
+
+Show in tables/cards with filters:
+
+Crop, Location, Date, Season
+
+6. 💬 Feedback Page
+Simple form for name, email, message
+
+Store in MongoDB
+
+Viewable in Admin Dashboard
+
+7. 🌐 Bilingual UI
+Use i18next for language translation (Tamil & English)
+
+Store language toggle state in localStorage or Context API
+
+8. 🛠️ Admin Dashboard
+View:
+
+User signups
+
+Most viewed modules
+
+Trending schemes
+
+Feedback logs
+
+Protect dashboard with admin login
+
+🧰 Tech Stack:
+Frontend: React.js + TailwindCSS
+
+Backend: Node.js + Express.js
+
+Database: MongoDB with Mongoose
+
+Authentication: JWT + Bcrypt
+
+Translation: i18next
+
+API Integrations: data.gov.in, eNAM, open-meteo
+
+Hosting Suggestions:
+
+Frontend: Netlify or Vercel
+
+Backend: Render or Cyclic.sh
+
+MongoDB: MongoDB Atlas (cloud)
+
+✅ Additional Requirements:
+Make everything responsive (mobile/tablet/desktop)
+
+Add sample .env file
+
+Use ESLint/prettier for formatting
+
+Clear folder structure:
+
+/client: React frontend
+
+/server: Node.js backend
+
+Add README with setup instructions
+
+🖥️ Final Output Expectations:
+Working Auth with JWT
+
+Video module page with subtitles/downloads
+
+Live data page pulling real or mock API data
+
+Forum section (basic)
+
+Admin dashboard
+
+Fully documented backend and frontend
+
+Tailwind CSS styling and reusable components
+
+i18next Tamil/English support
+
+Run locally in VS Code using:
