@@ -16,12 +16,14 @@ import LiveDataPage from "@/pages/live-data-page";
 import AdminDashboard from "@/pages/admin-dashboard";
 import FeedbackPage from "@/pages/feedback-page";
 import NotFound from "@/pages/not-found";
+import ProfilePage from "@/pages/profile-page";
 import "./lib/i18n";
 
 function Router() {
+  const location = window.location.pathname;
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      {location !== "/auth" && <Navbar />}
       <main className="flex-1">
         <Switch>
           <ProtectedRoute path="/" component={HomePage} />
@@ -30,6 +32,7 @@ function Router() {
           <ProtectedRoute path="/live-data" component={LiveDataPage} />
           <ProtectedRoute path="/admin" component={AdminDashboard} />
           <ProtectedRoute path="/feedback" component={FeedbackPage} />
+          <ProtectedRoute path="/profile" component={ProfilePage} />
           <Route path="/auth" component={AuthPage} />
           <Route component={NotFound} />
         </Switch>
