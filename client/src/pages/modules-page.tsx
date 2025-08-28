@@ -135,187 +135,171 @@ export default function ModulesPage() {
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
-                {/* Dynamic Modules Completed */}
-                {(() => {
-                  const totalModules = modules?.length || 1;
-                  const completedModules =
-                    userProgress?.filter((p) => p.completed).length || 0;
-                  const percent = Math.round(
-                    (completedModules / totalModules) * 100
-                  );
-                  const dashOffset = 226 - Math.round((percent / 100) * 226);
-                  return (
-                    <div className="text-center" key="progress-completed">
-                      <div className="w-20 h-20 mx-auto mb-3 relative">
-                        <svg className="w-20 h-20 transform -rotate-90">
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="36"
-                            stroke="#E5E7EB"
-                            strokeWidth="8"
-                            fill="transparent"
-                          />
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="36"
-                            stroke="#2563eb"
-                            strokeWidth="8"
-                            fill="transparent"
-                            strokeDasharray="226"
-                            strokeDashoffset={dashOffset}
-                            strokeLinecap="round"
-                            className="progress-circle"
-                          />
-                        </svg>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-lg font-bold text-[#2563eb]">
-                            {percent}%
-                          </span>
-                        </div>
-                      </div>
-                      <p className="text-slate-600">
-                        {t("modules.progress.completed")}
-                      </p>
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-3 relative">
+                    <svg className="w-20 h-20 transform -rotate-90">
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="#E5E7EB"
+                        strokeWidth="8"
+                        fill="transparent"
+                      />
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="#2563eb"
+                        strokeWidth="8"
+                        fill="transparent"
+                        strokeDasharray="226"
+                        strokeDashoffset="68"
+                        strokeLinecap="round"
+                        className="progress-circle"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-lg font-bold text-[#2563eb]">
+                        70%
+                      </span>
                     </div>
-                  );
-                })()}
-                {/* Dynamic Certificates Earned (placeholder logic) */}
-                {(() => {
-                  // Placeholder: certificates earned = completed modules / 2
-                  const totalModules = modules?.length || 1;
-                  const completedModules =
-                    userProgress?.filter((p) => p.completed).length || 0;
-                  const certificates = Math.floor(completedModules / 2);
-                  const percent = Math.round(
-                    (certificates / totalModules) * 100
-                  );
-                  const dashOffset = 226 - Math.round((percent / 100) * 226);
-                  return (
-                    <div className="text-center" key="progress-certificates">
-                      <div className="w-20 h-20 mx-auto mb-3 relative">
-                        <svg className="w-20 h-20 transform -rotate-90">
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="36"
-                            stroke="#E5E7EB"
-                            strokeWidth="8"
-                            fill="transparent"
-                          />
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="36"
-                            stroke="#2563eb"
-                            strokeWidth="8"
-                            fill="transparent"
-                            strokeDasharray="226"
-                            strokeDashoffset={dashOffset}
-                            strokeLinecap="round"
-                            className="progress-circle"
-                          />
-                        </svg>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-lg font-bold text-[#2563eb]">
-                            {percent}%
-                          </span>
-                        </div>
-                      </div>
-                      <p className="text-slate-600">
-                        {t("modules.progress.certificates")}
-                      </p>
+                  </div>
+                  <p className="text-slate-600">
+                    {t("modules.progress.completed")}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-3 relative">
+                    <svg className="w-20 h-20 transform -rotate-90">
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="#E5E7EB"
+                        strokeWidth="8"
+                        fill="transparent"
+                      />
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="#2563eb"
+                        strokeWidth="8"
+                        fill="transparent"
+                        strokeDasharray="226"
+                        strokeDashoffset="113"
+                        strokeLinecap="round"
+                        className="progress-circle"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-lg font-bold text-[#2563eb]">
+                        50%
+                      </span>
                     </div>
-                  );
-                })()}
-                {/* Dynamic Knowledge Retention (placeholder logic) */}
-                {(() => {
-                  // Placeholder: retention = completed modules / total modules * 90
-                  const totalModules = modules?.length || 1;
-                  const completedModules =
-                    userProgress?.filter((p) => p.completed).length || 0;
-                  const percent = Math.round(
-                    (completedModules / totalModules) * 90
-                  );
-                  const dashOffset = 226 - Math.round((percent / 100) * 226);
-                  return (
-                    <div className="text-center" key="progress-retention">
-                      <div className="w-20 h-20 mx-auto mb-3 relative">
-                        <svg className="w-20 h-20 transform -rotate-90">
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="36"
-                            stroke="#E5E7EB"
-                            strokeWidth="8"
-                            fill="transparent"
-                          />
-                          <circle
-                            cx="40"
-                            cy="40"
-                            r="36"
-                            stroke="#2563eb"
-                            strokeWidth="8"
-                            fill="transparent"
-                            strokeDasharray="226"
-                            strokeDashoffset={dashOffset}
-                            strokeLinecap="round"
-                            className="progress-circle"
-                          />
-                        </svg>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-lg font-bold text-[#2563eb]">
-                            {percent}%
-                          </span>
-                        </div>
-                      </div>
-                      <p className="text-slate-600">
-                        {t("modules.progress.retention")}
-                      </p>
+                  </div>
+                  <p className="text-slate-600">
+                    {t("modules.progress.certificates")}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto mb-3 relative">
+                    <svg className="w-20 h-20 transform -rotate-90">
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="#E5E7EB"
+                        strokeWidth="8"
+                        fill="transparent"
+                      />
+                      <circle
+                        cx="40"
+                        cy="40"
+                        r="36"
+                        stroke="#2563eb"
+                        strokeWidth="8"
+                        fill="transparent"
+                        strokeDasharray="226"
+                        strokeDashoffset="45"
+                        strokeLinecap="round"
+                        className="progress-circle"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-lg font-bold text-[#2563eb]">
+                        80%
+                      </span>
                     </div>
-                  );
-                })()}
+                  </div>
+                  <p className="text-slate-600">
+                    {t("modules.progress.retention")}
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
         )}
 
-        {/* Data Viewed Section (Placeholder) */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold text-slate-800 mb-4">
-            Data You've Viewed
-          </h2>
-          <Card>
-            <CardContent className="p-6">
-              <p className="text-slate-600">
-                Recent data interactions will appear here (e.g., market prices,
-                weather, education schemes).
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Modules List */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Modules Grid */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Render all modules from API */}
           {filteredModules.map((module) => {
+            // ...existing code...
             const progress = getProgressForModule(module.id);
+            const title =
+              language === "ta" && module.titleTamil
+                ? module.titleTamil
+                : module.title;
+            const description =
+              language === "ta" && module.descriptionTamil
+                ? module.descriptionTamil
+                : module.description;
+            // ...existing code...
             return (
               <Card key={module.id} className="card-hover">
+                {/* ...existing code... */}
+                <div className="relative">
+                  <img
+                    src={`https://images.unsplash.com/photo-145416580${
+                      module.category === "government"
+                        ? "6-c3d57bc86b40"
+                        : module.category === "banking"
+                        ? "3-544ae1b704d3"
+                        : module.category === "education"
+                        ? "2-320219-553eb213f72d"
+                        : "4-320219-553eb213f72d"
+                    }?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=200`}
+                    alt={title}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-t-lg">
+                    <Button
+                      size="lg"
+                      className="w-16 h-16 rounded-full bg-white bg-opacity-90 hover:bg-opacity-100"
+                    >
+                      <Play className="h-6 w-6 text-primary ml-1" />
+                    </Button>
+                  </div>
+                  <div className="absolute top-3 right-3 bg-primary text-white px-2 py-1 rounded text-xs font-medium">
+                    <Clock className="h-3 w-3 inline mr-1" />
+                    {formatDuration(module.duration || 0)}
+                  </div>
+                  {progress?.completed && (
+                    <div className="absolute top-3 left-3 bg-green-600 text-white px-2 py-1 rounded text-xs font-medium">
+                      Completed
+                    </div>
+                  )}
+                </div>
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-2">
                     <Badge variant="outline">{module.category}</Badge>
                   </div>
                   <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                    {language === "ta" && module.titleTamil
-                      ? module.titleTamil
-                      : module.title}
+                    {title}
                   </h3>
-                  <p className="text-slate-600 mb-4">
-                    {language === "ta" && module.descriptionTamil
-                      ? module.descriptionTamil
-                      : module.description}
-                  </p>
+                  <p className="text-slate-600 mb-4">{description}</p>
                   {progress && (
                     <div className="mb-4">
                       <div className="flex justify-between text-sm text-slate-600 mb-1">
@@ -366,7 +350,7 @@ export default function ModulesPage() {
             );
           })}
           {/* Hardcoded Education module */}
-          {(selectedCategory === "education" || selectedCategory === "all") && (
+          {selectedCategory === "education" || selectedCategory === "all" ? (
             <Card className="card-hover">
               <div className="relative">
                 <img
@@ -430,7 +414,7 @@ export default function ModulesPage() {
                 </div>
               </CardContent>
             </Card>
-          )}
+          ) : null}
         </div>
 
         {filteredModules.length === 0 && (

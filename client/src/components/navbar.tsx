@@ -2,20 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Menu,
-  User,
-  ChevronDown,
-  Sprout,
-  Users,
-  BarChart3,
-} from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, User, ChevronDown, Sprout, Users, BarChart3 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useLanguage } from "@/components/language-provider";
 
@@ -26,15 +14,15 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { href: "/", label: t("nav.home") },
-    { href: "/modules", label: t("nav.modules") },
-    { href: "/forum", label: t("nav.forum") },
-    { href: "/live-data", label: t("nav.liveData") },
-    { href: "/feedback", label: t("nav.feedback") },
+    { href: "/", label: t('nav.home') },
+    { href: "/modules", label: t('nav.modules') },
+    { href: "/forum", label: t('nav.forum') },
+    { href: "/live-data", label: t('nav.liveData') },
+    { href: "/feedback", label: t('nav.feedback') },
   ];
 
   if (user?.isAdmin) {
-    navItems.push({ href: "/admin", label: t("nav.admin") });
+    navItems.push({ href: "/admin", label: t('nav.admin') });
   }
 
   const handleLogout = () => {
@@ -52,9 +40,7 @@ export function Navbar() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-slate-800">Rural Minds</h1>
-              <p className="text-xs text-slate-500">
-                ग्रामीण शिक्षा / கிராமப்புற கல்வி
-              </p>
+              <p className="text-xs text-slate-500">ग्रामीण शिक्षा / கிராமப்புற கல்வி</p>
             </div>
           </Link>
 
@@ -64,7 +50,7 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`nav-link ${location === item.href ? "active" : ""}`}
+                className={`nav-link ${location === item.href ? 'active' : ''}`}
               >
                 {item.label}
               </Link>
@@ -76,21 +62,21 @@ export function Navbar() {
             {/* Language Toggle */}
             <div className="flex items-center bg-slate-100 rounded-lg p-1">
               <button
-                onClick={() => setLanguage("en")}
+                onClick={() => setLanguage('en')}
                 className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
-                  language === "en"
-                    ? "bg-white text-slate-800 shadow-sm"
-                    : "text-slate-600 hover:text-slate-800"
+                  language === 'en'
+                    ? 'bg-white text-slate-800 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-800'
                 }`}
               >
                 EN
               </button>
               <button
-                onClick={() => setLanguage("ta")}
+                onClick={() => setLanguage('ta')}
                 className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
-                  language === "ta"
-                    ? "bg-white text-slate-800 shadow-sm"
-                    : "text-slate-600 hover:text-slate-800"
+                  language === 'ta'
+                    ? 'bg-white text-slate-800 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-800'
                 }`}
               >
                 தமிழ்
@@ -101,19 +87,14 @@ export function Navbar() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="flex items-center space-x-2"
-                  >
+                  <Button variant="outline" className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
                     <span>{user.firstName}</span>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem asChild>
-                    <Link href="/profile">Profile</Link>
-                  </DropdownMenuItem>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
                   <DropdownMenuItem>Settings</DropdownMenuItem>
                   {user.isAdmin && (
                     <DropdownMenuItem asChild>
@@ -130,7 +111,7 @@ export function Navbar() {
               </DropdownMenu>
             ) : (
               <Button asChild>
-                <Link href="/auth">{t("auth.login")}</Link>
+                <Link href="/auth">{t('auth.login')}</Link>
               </Button>
             )}
 
