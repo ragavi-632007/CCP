@@ -183,15 +183,14 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-accent text-slate-800 hover:bg-accent/90"
+                className="bg-white text-primary font-semibold hover:bg-accent hover:text-primary"
                 asChild
               >
                 <Link href="/modules">Start Learning Today</Link>
               </Button>
               <Button
                 size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-primary"
+                className="bg-white text-primary font-semibold hover:bg-accent hover:text-primary"
                 asChild
               >
                 <Link href="/forum">Join the Community</Link>

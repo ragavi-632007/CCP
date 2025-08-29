@@ -35,7 +35,7 @@ function Router() {
           <Route component={NotFound} />
         </Switch>
       </main>
-      <Footer />
+      {location !== "/auth" && <Footer />}
     </div>
   );
 }
