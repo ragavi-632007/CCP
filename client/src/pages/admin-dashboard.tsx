@@ -50,7 +50,7 @@ export default function AdminDashboard() {
 
   // Mock data for demonstration (in real app, this would come from API)
   const recentUsers = [
-    { id: "1", name: "John doe", timeAgo: "2 hours ago", initials: "JD" },
+    { id: "1", name: "John caesar", timeAgo: "2 hours ago", initials: "JD" },
     { id: "2", name: "Sita chandra", timeAgo: "4 hours ago", initials: "SA" },
     { id: "3", name: "Raj Kumar", timeAgo: "6 hours ago", initials: "RK" },
     { id: "4", name: "Priya Devika", timeAgo: "8 hours ago", initials: "PD" },

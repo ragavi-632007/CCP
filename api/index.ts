@@ -1,48 +1,64 @@
-import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import express from "express";
+import serverless from "serverless-http";
+import { setupAuth } from "./auth";
+import { storage } from "./storage";
+import {
+  insertForumPostSchema,
+  insertForumCommentSchema,
+  insertFeedbackSchema,
+} from "@shared/schema";
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  const start = Date.now();
-  const path = req.path;
-  let capturedJsonResponse: Record<string, any> | undefined = undefined;
+// Setup authentication (register, login, logout, user)
+setupAuth(app);
 
-  const originalResJson = res.json;
-  res.json = function (bodyJson, ...args) {
-    capturedJsonResponse = bodyJson;
-    return originalResJson.apply(res, [bodyJson, ...args]);
-  };
+// Example route: modules
+app.get("/modules", async (req, res) => {
+  try {
+    let modules = await storage.getModules();
 
-  res.on("finish", () => {
-    const duration = Date.now() - start;
-    if (path.startsWith("/api")) {
-      let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+    if (modules.length === 0) {
+      const defaultModules = [
+        {
+          title: "Digital Banking Basics",
+          titleTamil: "டிஜிட்டல் வங்கி அடிப்படைகள்",
+          description:
+            "Learn about online banking, UPI payments, and digital financial services",
+          descriptionTamil:
+            "ஆன்லைன் வங்கி, UPI பணம் செலுத்துதல் மற்றும் டிஜிட்டல் நிதி சேவைகள் பற்றி அறியுங்கள்",
+          category: "banking",
+          videoUrl:
+            "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          downloadUrl:
+            "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
+          duration: 300,
+          level: "beginner",
+        },
+      ];
+
+      for (const moduleData of defaultModules) {
+        await storage.createModule(moduleData);
       }
 
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
-      }
-
-      log(logLine);
+      modules = await storage.getModules();
     }
-  });
 
-  next();
+    res.json(modules);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch modules" });
+  }
 });
 
-registerRoutes(app);
+// TODO: Add forum, feedback, storage, cite routes here
 
-app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+// Global error handler
+app.use((err: any, _req: any, res: any, _next: any) => {
+  console.error(err);
   const status = err.status || err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   res.status(status).json({ message });
-  throw err;
 });
 
-export default app;
+export default serverless(app);

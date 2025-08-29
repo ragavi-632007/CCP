@@ -1,5 +1,4 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import { setupAuth } from "./auth";
 import { storage } from "./storage";
 import {
@@ -22,11 +21,11 @@ function requireAdmin(req: any, res: any, next: any) {
   next();
 }
 
-export function registerRoutes(app: Express): void {
+export function setupRoutes(app: Express) {
   setupAuth(app);
 
   // Modules routes
-  app.get("/api/modules", async (req, res) => {
+  app.get("/modules", async (req, res) => {
     try {
       let modules = await storage.getModules();
 
@@ -64,5 +63,7 @@ export function registerRoutes(app: Express): void {
     }
   });
 
-  // ...existing code for other routes...
+  // TODO: Add other routes here (forum posts, comments, feedback, etc.)
+
+  // No need for createServer() in serverless
 }

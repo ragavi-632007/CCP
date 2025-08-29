@@ -218,7 +218,7 @@ export default function FeedbackPage() {
               <div className="flex items-start space-x-2">
                 <Checkbox id="privacy" required />
                 <Label htmlFor="privacy" className="text-sm text-slate-600 leading-relaxed">
-                  I agree to the privacy policy and terms of service. My feedback may be used to improve the Rural Minds platform.
+                  I agree to the  policy and terms of service. My feedback may  used to improve the Rural Minds platform.
                 </Label>
               </div>
 
