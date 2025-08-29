@@ -22,7 +22,7 @@ function requireAdmin(req: any, res: any, next: any) {
   next();
 }
 
-export function registerRoutes(app: Express): Server {
+export function registerRoutes(app: Express): void {
   setupAuth(app);
 
   // Modules routes
@@ -65,7 +65,4 @@ export function registerRoutes(app: Express): Server {
   });
 
   // ...existing code for other routes...
-
-  const httpServer = createServer(app);
-  return httpServer;
 }
