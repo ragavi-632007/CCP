@@ -10,7 +10,6 @@ import {
   MessageSquare, 
   TrendingUp,
   Star,
-  Clock,
   CheckCircle,
   AlertCircle,
   Loader2,

@@ -221,13 +221,11 @@ export default function FeedbackPage() {
                   I agree to   policy and terms  service. My feedback may  used to improve the Rural Minds platform.
                 </Label>
               </div>
-
               {/* Submit Button */}
               <Button
                 type="submit"
                 className="w-full btn-primary text-base sm:text-lg py-3"
-                disabled={submitFeedbackMutation.isPending}
-              >
+                disabled={submitFeedbackMutation.isPending}>
                 {submitFeedbackMutation.isPending ? (
                   <Loader2 className="h-5 w-5 mr-2 animate-spin" />
                 ) : (
