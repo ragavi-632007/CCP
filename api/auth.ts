@@ -33,15 +33,18 @@ export async function comparePasswords(supplied: string, stored: string) {
 }
 
 export function setupAuth(app: Express) {
+  // Use memory store for serverless environments to avoid connection issues
   const sessionSettings: session.SessionOptions = {
     secret: process.env.SESSION_SECRET || "rural-minds-secret-key-development",
     resave: false,
     saveUninitialized: false,
-    store: new PostgresSessionStore({
-      pool,
-      createTableIfMissing: true,
-      tableName: "session",
-    }),
+    store: process.env.NODE_ENV === "production" && process.env.VERCEL 
+      ? undefined // Use memory store in Vercel
+      : new PostgresSessionStore({
+          pool,
+          createTableIfMissing: true,
+          tableName: "session",
+        }),
     cookie: {
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,

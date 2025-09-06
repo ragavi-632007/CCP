@@ -1,64 +1,29 @@
 import express from "express";
 import serverless from "serverless-http";
-import { setupAuth } from "./auth";
-import { storage } from "./storage";
-import {
-  insertForumPostSchema,
-  insertForumCommentSchema,
-  insertFeedbackSchema,
-} from "@shared/schema";
+import { setupRoutes } from "./routes";
 
 const app = express();
 app.use(express.json());
 
-// Setup authentication (register, login, logout, user)
-setupAuth(app);
-
-// Example route: modules
-app.get("/modules", async (req, res) => {
-  try {
-    let modules = await storage.getModules();
-
-    if (modules.length === 0) {
-      const defaultModules = [
-        {
-          title: "Digital Banking Basics",
-          titleTamil: "டிஜிட்டல் வங்கி அடிப்படைகள்",
-          description:
-            "Learn about online banking, UPI payments, and digital financial services",
-          descriptionTamil:
-            "ஆன்லைன் வங்கி, UPI பணம் செலுத்துதல் மற்றும் டிஜிட்டல் நிதி சேவைகள் பற்றி அறியுங்கள்",
-          category: "banking",
-          videoUrl:
-            "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-          downloadUrl:
-            "https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4",
-          duration: 300,
-          level: "beginner",
-        },
-      ];
-
-      for (const moduleData of defaultModules) {
-        await storage.createModule(moduleData);
-      }
-
-      modules = await storage.getModules();
-    }
-
-    res.json(modules);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch modules" });
-  }
-});
-
-// TODO: Add forum, feedback, storage, cite routes here
+// Setup all routes including authentication
+try {
+  setupRoutes(app);
+  console.log("Routes setup successfully");
+} catch (error) {
+  console.error("Failed to setup routes:", error);
+  throw error;
+}
 
 // Global error handler
 app.use((err: any, _req: any, res: any, _next: any) => {
-  console.error(err);
+  console.error("Global error handler:", err);
+  console.error("Error stack:", err.stack);
   const status = err.status || err.statusCode || 500;
   const message = err.message || "Internal Server Error";
-  res.status(status).json({ message });
+  res.status(status).json({ 
+    message,
+    error: process.env.NODE_ENV === "development" ? err.stack : undefined
+  });
 });
 
 export default serverless(app);
